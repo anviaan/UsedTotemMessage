@@ -3,7 +3,6 @@ package net.anvian.usedtotemmessage.mixin;
 import net.anvian.usedtotemmessage.Constants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +25,7 @@ public class UsedTotemMessageMixin {
                 onlinePlayer.sendSystemMessage(
                         Component.literal(player.getName().getString())
                                 .append(" ")
-                                .append(Component.translatable(Constants.MOD_ID+".usedtotem"))
+                                .append(Component.translatable(Constants.MOD_ID + ".usedtotem"))
                                 .withStyle(ChatFormatting.GOLD)
                 );
             }
