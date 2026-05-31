@@ -43,8 +43,8 @@ repositories {
         url = 'https://maven.blamejared.com'
     }
     maven {
-        name = 'Repsy Anvian'
-        url = 'https://repo.repsy.io/mvn/anvian/anvians-lib'
+        name = 'Anvian Reposilite'
+        url = 'https://maven.anvian.net/releases'
     }
 }
 

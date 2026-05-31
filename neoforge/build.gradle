@@ -22,9 +22,6 @@ neoForge {
         client {
             client()
         }
-        data {
-            data()
-        }
         server {
             server()
         }
@@ -39,8 +36,8 @@ neoForge {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    implementation "net.anvian.anvianslib:anvianslib-neoforge-1.21:${anvianslib}"
-    runtimeOnly "net.anvian.anvianslib:anvianslib-neoforge-1.21:${anvianslib}"
+    implementation "net.anvian.anvianslib:anvianslib-neoforge-1.21.10:${anvianslib}"
+    runtimeOnly "net.anvian.anvianslib:anvianslib-neoforge-1.21.10:${anvianslib}"
 }
 
 tasks.register('copyMods', Copy) {
