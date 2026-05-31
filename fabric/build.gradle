@@ -2,6 +2,12 @@ plugins {
     id 'multiloader-loader'
     id 'fabric-loom'
 }
+
+repositories {
+    maven {
+        url = "https://maven.terraformersmc.com/"
+    }
+}
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered {
@@ -10,6 +16,10 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+
+    modLocalRuntime("com.terraformersmc:modmenu:11.0.3")
+
+    modImplementation "net.anvian.anvianslib:anvianslib-fabric-1.21:${anvianslib}"
 }
 
 loom {

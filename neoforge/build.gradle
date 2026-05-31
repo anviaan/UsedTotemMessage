@@ -37,3 +37,17 @@ neoForge {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+dependencies {
+    implementation "net.anvian.anvianslib:anvianslib-neoforge-1.21:${anvianslib}"
+    runtimeOnly "net.anvian.anvianslib:anvianslib-neoforge-1.21:${anvianslib}"
+}
+
+tasks.register('copyMods', Copy) {
+    from configurations.runtimeClasspath.filter { it.name.contains('anvianslib') }
+    into layout.projectDirectory.dir('run/mods')
+}
+
+tasks.named('prepareClientRun') {
+    dependsOn 'copyMods'
+}
