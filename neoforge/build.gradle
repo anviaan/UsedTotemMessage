@@ -5,25 +5,29 @@ plugins {
 
 neoForge {
     version = neoforge_version
-    // Automatically enable neoforge AccessTransformers if the file exists
     def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
         accessTransformers.add(at.absolutePath)
     }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
     runs {
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
-            ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
         }
         client {
             client()
+            gameDirectory = this.mkdir(this.file("runs/client"))
+        }
+        data {
+            clientData()
+            gameDirectory = this.mkdir(this.file("runs/data"))
+            programArguments.addAll '--mod', project.mod_id, '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath()
         }
         server {
             server()
+            this.file("runs/server").createParentDirectories()
+            gameDirectory = this.mkdir(this.file("runs/server"))
         }
     }
     mods {
@@ -36,8 +40,8 @@ neoForge {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    implementation "net.anvian.anvianslib:anvianslib-neoforge-1.21.10:${anvianslib}"
-    runtimeOnly "net.anvian.anvianslib:anvianslib-neoforge-1.21.10:${anvianslib}"
+    implementation "net.anvian.anvianslib:anvianslib-neoforge-26.1:${anvianslib}"
+    runtimeOnly "net.anvian.anvianslib:anvianslib-neoforge-26.1:${anvianslib}"
 }
 
 tasks.register('copyMods', Copy) {
@@ -47,4 +51,21 @@ tasks.register('copyMods', Copy) {
 
 tasks.named('prepareClientRun') {
     dependsOn 'copyMods'
+}
+
+def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
+['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
+    configurations.named("$variant") {
+        attributes { attribute(loaderAttribute, 'neoforge') }
+    }
+}
+sourceSets.configureEach {
+    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant ->
+        configurations.named("$variant") {
+            attributes { attribute(loaderAttribute, 'neoforge') }
+        }
+    }
+}
+configurations.matching { it.name.endsWith('jarJar') }.configureEach {
+    attributes { attribute(loaderAttribute, 'neoforge') }
 }
