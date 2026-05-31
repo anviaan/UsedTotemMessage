@@ -8,7 +8,7 @@ public class CommonMod {
     public static ModConfig configs = new ModConfig(ModConfig.UsedTotemMessageConfig.class, Constants.LOG);
 
     public static void init() {
-        Constants.LOG.info("Hello from UsedTotemMessage!");
+        Constants.LOG.info("Hello from UsedTotemMessage in {}!", LibUtil.getMinecraftVersion());
 
         configs.initialize(Services.PLATFORM.getConfigPath().resolve(Constants.MOD_ID).toFile(), Constants.MOD_ID);
 

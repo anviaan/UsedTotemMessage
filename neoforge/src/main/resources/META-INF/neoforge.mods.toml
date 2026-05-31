@@ -25,7 +25,7 @@ side = "BOTH"
 [[dependencies.${mod_id}]]
 modId = "anvianslib"
 type = "required"
-versionRange = "[${anvianslib},)"
+versionRange = "[1.2,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.${mod_id}]]
