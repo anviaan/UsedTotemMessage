@@ -1,1 +1,1 @@
-- Init mod to 26.1
+- Release 26.1

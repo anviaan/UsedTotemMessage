@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Locale;
+
 @Mixin(LivingEntity.class)
 public class UsedTotemMessageMixin {
     @Unique
@@ -32,6 +34,6 @@ public class UsedTotemMessageMixin {
     private MutableComponent usedTotemMessage$createMessage(String playerName) {
         String rawMessage = usedTotemMessage$config.message;
         String formatted = rawMessage.replace("{player}", playerName);
-        return Component.literal(formatted).withStyle(ChatFormatting.getByName(usedTotemMessage$config.chatColor));
+        return Component.literal(formatted).withStyle(ChatFormatting.valueOf(usedTotemMessage$config.chatColor.toUpperCase(Locale.ROOT)));
     }
 }
