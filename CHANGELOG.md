@@ -1,1 +1,1 @@
-- Init mod to 1.21.10
+- Release 1.21.10
